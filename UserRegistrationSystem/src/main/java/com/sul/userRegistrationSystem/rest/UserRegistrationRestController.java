@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +49,19 @@ public class UserRegistrationRestController {
 	public ResponseEntity<UserDTO> deleteUse(@PathVariable("id") final Long id) {
 		userJpaRepository.deleteById(id);
 		return new ResponseEntity<UserDTO>(HttpStatus.OK);
-
+	}
+	
+	@PutMapping(value = "/{id}",consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserDTO> putUser(@PathVariable("id") final Long id,@RequestBody final UserDTO user){
+		UserDTO currentUser = userJpaRepository.getUserById(id);
+		String name = user.getName();
+		String email = user.getEmail();
+		String address = user.getAddress();
+		currentUser.setName(name);
+		currentUser.setEmail(email);
+		currentUser.setAddress(address);
+		userJpaRepository.saveAndFlush(currentUser);
+		return new ResponseEntity<UserDTO>(currentUser,HttpStatus.OK);	
 	}
 
 	@Autowired
