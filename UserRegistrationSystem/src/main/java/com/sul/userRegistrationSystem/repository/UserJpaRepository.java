@@ -9,4 +9,6 @@ import com.sul.userRegistrationSystem.dto.UserDTO;
 public interface UserJpaRepository extends JpaRepository<UserDTO, Long> {
 
 	UserDTO getUserById(Long id);
+	
+	UserDTO getUserByName(String name);
 }
