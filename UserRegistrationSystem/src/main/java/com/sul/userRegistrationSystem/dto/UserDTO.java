@@ -18,19 +18,20 @@ public class UserDTO {
 	@GeneratedValue
 	@Column(name = "USER_ID")
 	private Long id;
-	
-	@NotEmpty
-	@Length(max = 50)
+
+	@NotEmpty(message = "error.name.empty")
+	@Length(max = 50, message = "error.name.length")
 	@Column(name = "NAME")
 	private String name;
 
-	@NotEmpty
-	@Length(max = 100)
+	@NotEmpty(message = "sul.error.address.empty")
+	@Length(max = 150, message = "error.address.length")
 	@Column(name = "ADDRESS")
 	private String address;
-	
-	@Length(max = 100)
-	@Email
+
+	@Email(message = "error.email.email")
+	@NotEmpty(message = "error.email.empty")
+	@Length(max = 80, message = "error.email.length")
 	@Column(name = "EMAIL")
 	private String email;
 
